@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Learning & Improvement Portal</title>
+
+    <link rel="stylesheet" href="1style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <h1>Student Learning & Improvement Portal</h1>
+
+    <p>P.V.I.Mission Marathi Mulanchi Shala</p>
+
+    <div class="header-buttons">
+
+        <button class="login-button" onclick="showSection('login')">
+            Login
+        </button>
+
+        <button class="create-button" onclick="showSection('create')">
+            Create Account
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- ================= HOME ================= -->
+
+<div id="home" class="section active">
+
+    <div class="welcome-box">
+
+        <h2>
+            Welcome to PIV Mission Marathi School
+        </h2>
+
+        <p>
+            Learn at your own level, practice regularly
+            and make your weak topics strong.
+        </p>
+
+        <p>
+            Every student can learn, improve and succeed! 🌟
+        </p>
+
+        <button
+            class="start-button"
+            onclick="showSection('standards')">
+
+            Start Learning
+
+        </button>
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📚
+            </div>
+
+            <h3>Learn</h3>
+
+            <p>
+                Learn different subjects according
+                to your learning level.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>Practice</h3>
+
+            <p>
+                Practice questions and test
+                your knowledge.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📈
+            </div>
+
+            <h3>Improve</h3>
+
+            <p>
+                Find weak areas and improve them
+                with regular practice.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= STANDARDS ================= -->
+
+<div id="standards" class="section">
+
+    <h2 class="page-title">
+        Select Your Standard
+    </h2>
+
+    <p class="page-subtitle">
+        Choose your standard to start learning.
+    </p>
+
+
+    <div class="standard-grid">
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 1')">
+            <h3>Std. 1</h3>
+            <p>Basic Learning</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 2')">
+            <h3>Std. 2</h3>
+            <p>Basic Learning</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 3')">
+            <h3>Std. 3</h3>
+            <p>Primary Level</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 4')">
+            <h3>Std. 4</h3>
+            <p>Primary Level</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 5')">
+            <h3>Std. 5</h3>
+            <p>Primary Level</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 6')">
+            <h3>Std. 6</h3>
+            <p>Upper Primary</p>
+        </div>
+
+        <div class="standard-card"
+             onclick="selectClass('Std. 7')">
+            <h3>Std. 7</h3>
+            <p>Upper Primary</p>
+        </div>
+
+    </div>
+
+
+    <button class="back"
+            onclick="showSection('home')">
+        ← Back
+    </button>
+
+</div>
+
+
+
+<!-- ================= SUBJECTS ================= -->
+
+<div id="subjects" class="section">
+
+    <h2 id="classTitle"></h2>
+
+    <h3>Select Subject</h3>
+
+    <div class="card-box">
+
+        <div class="card"
+             onclick="selectSubject('Marathi')">
+            <h3>📚 मराठी</h3>
+        </div>
+
+        <div class="card"
+             onclick="selectSubject('English')">
+            <h3>📖 </h3>
+        </div>
+
+        <div class="card"
+             onclick="selectSubject('Mathematics')">
+            <h3>➗ Mathematics</h3>
+        </div>
+
+        <div class="card"
+             onclick="selectSubject('Environmental Studies')">
+            <h3>🌱 Environmental Studies</h3>
+        </div>
+
+        <div class="card"
+             onclick="selectSubject('General Knowledge')">
+            <h3>🧠 General Knowledge</h3>
+        </div>
+
+    </div>
+
+    <button class="back"
+            onclick="showSection('standards')">
+        ← Back
+    </button>
+
+</div>
+
+
+
+<!-- ================= LEVEL ================= -->
+
+<div id="level" class="section">
+
+    <h2 id="subjectTitle"></h2>
+
+    <p>Select Test Level</p>
+
+    <div class="card-box">
+
+        <div class="card"
+             onclick="startQuiz('Easy')">
+            <h3>🟢 Easy</h3>
+            <p>Basic Questions</p>
+        </div>
+
+        <div class="card"
+             onclick="startQuiz('Medium')">
+            <h3>🟡 Medium</h3>
+            <p>Practice Questions</p>
+        </div>
+
+        <div class="card"
+             onclick="startQuiz('Hard')">
+            <h3>🔴 Hard</h3>
+            <p>Challenge Questions</p>
+        </div>
+
+    </div>
+
+    <button class="back"
+            onclick="showSection('subjects')">
+        ← Back
+    </button>
+
+</div>
+
+
+
+<!-- ================= QUIZ ================= -->
+
+<div id="quiz" class="section">
+
+    <div class="quiz-box">
+
+        <h2 id="quizTitle"></h2>
+
+        <p id="questionNumber"></p>
+
+        <h3 id="question"></h3>
+
+        <div id="options"></div>
+
+        <button onclick="nextQuestion()">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= RESULT ================= -->
+
+<div id="result" class="section">
+
+    <div class="result">
+
+        <h2>🎉 Test Completed!</h2>
+
+        <p>Your Score</p>
+
+        <div class="score" id="score"></div>
+
+        <p id="feedback"></p>
+
+        <button onclick="showSection('home')">
+            Take Another Test
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= LOGIN ================= -->
+
+<div id="login" class="section">
+
+    <div class="account-box">
+
+        <h2>Student Login</h2>
+
+        <input
+            type="text"
+            id="loginName"
+            placeholder="Enter your name">
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter password">
+
+        <button onclick="loginUser()">
+            Login
+        </button>
+
+        <p id="loginMessage"></p>
+
+        <button class="back"
+                onclick="showSection('home')">
+            ← Back
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= CREATE ACCOUNT ================= -->
+
+<div id="create" class="section">
+
+    <div class="account-box">
+
+        <h2>Create Account</h2>
+
+        <input
+            type="text"
+            id="createName"
+            placeholder="Enter your name">
+
+        <input
+            type="email"
+            id="createEmail"
+            placeholder="Enter your email">
+
+        <input
+            type="password"
+            id="createPassword"
+            placeholder="Create password">
+
+        <button onclick="createAccount()">
+            Create Account
+        </button>
+
+        <p id="createMessage"></p>
+
+        <button class="back"
+                onclick="showSection('home')">
+            ← Back
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= CHATBOX ================= -->
+
+<button class="chat-button"
+        onclick="toggleChat()">
+
+    💬
+
+</button>
+
+
+<div id="chatbox" class="chatbox">
+
+    <div class="chat-header">
+
+        <span>Student Assistant 🤖</span>
+
+        <button onclick="toggleChat()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="chatMessages"
+         class="chat-messages">
+
+        <div class="bot-message">
+            Hello! 👋 How can I help you?
+        </div>
+
+    </div>
+
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="chatInput"
+            placeholder="Type your message..."
+            onkeypress="chatEnter(event)">
+
+        <button onclick="sendMessage()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="1script.js"></script>
+
+</body>
+</html>

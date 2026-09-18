@@ -1,41 +1,30 @@
 let selectedClass = "";
 let selectedSubject = "";
 let selectedLevel = "";
-
 let currentQuestion = 0;
 let score = 0;
-
-
-/* ================= QUESTIONS ================= */
-/* STD. 1 - MARATHI */
 
 const quizQuestions = {
 
     Marathi: {
 
-        /* ================= EASY ================= */
-
         Easy: [
-
             {
-                question: "‘आई’ या शब्दातील पहिले अक्षर कोणते?",
-                options: ["ई", "आ", "इ", "अ"],
-                answer: "आ"
+                question: "‘आई’ या शब्दाचा समानार्थी शब्द कोणता?",
+                options: ["माता", "बहीण", "मुलगी", "मावशी"],
+                answer: "माता"
             },
-
             {
                 question: "‘फूल’ या शब्दाचे अनेकवचन काय?",
                 options: ["फुली", "फुले", "फुला", "फुल"],
                 answer: "फुले"
             },
-
-            {
+             {
                 question: "‘मोठा’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",
                 options: ["उंच", "लहान", "जाड", "सुंदर"],
                 answer: "लहान"
             },
-
-            {
+              {
                 question: "‘सूर्य’ कधी उगवतो?",
                 options: ["रात्री", "सकाळी", "दुपारी", "संध्याकाळी"],
                 answer: "सकाळी"
@@ -79,17 +68,12 @@ const quizQuestions = {
 
         ],
 
-
-        /* ================= MEDIUM ================= */
-
         Medium: [
-
             {
-                question: "‘सुंदर’ या शब्दाचा समानार्थी शब्द कोणता?",
-                options: ["कुरूप", "छान", "मोठा", "लहान"],
-                answer: "छान"
+                question: "‘सुंदर’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",
+                options: ["छान", "कुरूप", "मोठा", "लहान"],
+                answer: "कुरूप"
             },
-
             {
                 question: "‘दिवस’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",
                 options: ["सकाळ", "रात्र", "दुपार", "संध्याकाळ"],
@@ -150,13 +134,8 @@ const quizQuestions = {
             }
 
         ],
-
-
-        /* ================= HARD ================= */
-
         Hard: [
-
-            {
+          {
                 question: "‘आनंदी’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",
                 options: ["हसरा", "दुःखी", "सुंदर", "शांत"],
                 answer: "दुःखी"
@@ -223,282 +202,204 @@ const quizQuestions = {
 };
 
 
-/* ================= SHOW SECTION ================= */
+/* SHOW SECTION */
 
 function showSection(id) {
 
-    document.querySelectorAll(".section").forEach(
-        section => {
-            section.classList.remove("active");
-        }
-    );
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
 
     document.getElementById(id).classList.add("active");
-
 }
 
 
-/* ================= SELECT CLASS ================= */
+/* SELECT CLASS */
 
 function selectClass(className) {
 
     selectedClass = className;
 
     document.getElementById("classTitle").innerText =
-        selectedClass + " - Select Subject";
+        className + " - Subjects";
 
     showSection("subjects");
-
 }
 
 
-/* ================= SELECT SUBJECT ================= */
+/* SELECT SUBJECT */
 
 function selectSubject(subject) {
 
     selectedSubject = subject;
 
     document.getElementById("subjectTitle").innerText =
-        selectedClass + " → " + selectedSubject;
+        subject + " - Select Level";
 
     showSection("level");
-
 }
 
 
-/* ================= START QUIZ ================= */
+/* START QUIZ */
 
 function startQuiz(level) {
 
     selectedLevel = level;
 
     currentQuestion = 0;
-
     score = 0;
 
     document.getElementById("quizTitle").innerText =
-        selectedClass + " | " +
-        selectedSubject + " | " +
-        selectedLevel + " Test";
+        selectedSubject + " - " + level + " Quiz";
 
     showSection("quiz");
 
     loadQuestion();
-
 }
 
 
-/* ================= LOAD QUESTION ================= */
+/* LOAD QUESTION */
 
 function loadQuestion() {
 
-    let questions = quizQuestions[selectedSubject];
+    const questions =
+        quizQuestions[selectedSubject]?.[selectedLevel];
 
-    if (!questions || !questions[selectedLevel]) {
+    if (!questions) {
 
         document.getElementById("question").innerText =
             "Questions for this subject are not added yet.";
-
-        document.getElementById("questionNumber").innerText = "";
 
         document.getElementById("options").innerHTML = "";
 
         return;
     }
 
-    let currentQuestions =
-        questions[selectedLevel];
-
-    let q =
-        currentQuestions[currentQuestion];
-
+    const q = questions[currentQuestion];
 
     document.getElementById("questionNumber").innerText =
-        "Question " +
-        (currentQuestion + 1) +
-        " of " +
-        currentQuestions.length;
-
+        "Question " + (currentQuestion + 1) +
+        " of " + questions.length;
 
     document.getElementById("question").innerText =
         q.question;
 
+    const optionsDiv =
+        document.getElementById("options");
 
-    let optionsHTML = "";
+    optionsDiv.innerHTML = "";
 
+    q.options.forEach((option, index) => {
 
-    q.options.forEach(option => {
-
-        optionsHTML += `
-
+        optionsDiv.innerHTML += `
             <label class="option">
-
                 <input
                     type="radio"
                     name="answer"
                     value="${option}"
                 >
-
                 ${option}
-
             </label>
-
         `;
-
     });
-
-
-    document.getElementById("options").innerHTML =
-        optionsHTML;
-
 }
 
 
-/* ================= NEXT QUESTION ================= */
+/* NEXT QUESTION */
 
 function nextQuestion() {
 
-    let questions =
-        quizQuestions[selectedSubject];
+    const questions =
+        quizQuestions[selectedSubject]?.[selectedLevel];
 
-    if (!questions || !questions[selectedLevel]) {
-
-        alert("Questions are not available yet.");
-
+    if (!questions) {
         return;
-
     }
 
-
-    let currentQuestions =
-        questions[selectedLevel];
-
-
-    let selected =
+    const selected =
         document.querySelector(
             'input[name="answer"]:checked'
         );
 
-
     if (!selected) {
 
-        alert("Please select an answer!");
+        alert("Please select an answer.");
 
         return;
-
     }
 
-
-    if (
-        selected.value ===
-        currentQuestions[currentQuestion].answer
-    ) {
+    if (selected.value === questions[currentQuestion].answer) {
 
         score++;
-
     }
-
 
     currentQuestion++;
 
-
-    if (
-        currentQuestion <
-        currentQuestions.length
-    ) {
+    if (currentQuestion < questions.length) {
 
         loadQuestion();
 
-    }
-
-    else {
+    } else {
 
         showResult();
-
     }
-
 }
 
 
-/* ================= RESULT ================= */
+/* SHOW RESULT */
 
 function showResult() {
 
-    let questions =
-        quizQuestions[selectedSubject][selectedLevel];
+    const questions =
+        quizQuestions[selectedSubject]?.[selectedLevel];
 
+    const total = questions.length;
+
+    const percentage =
+        (score / total) * 100;
 
     document.getElementById("score").innerText =
-        score + " / " + questions.length;
+        score + " / " + total;
 
+    if (percentage >= 80) {
 
-    let feedback = "";
+        document.getElementById("feedback").innerText =
+            "Excellent! Keep learning.";
 
+    } else if (percentage >= 50) {
 
-    if (score === 10) {
+        document.getElementById("feedback").innerText =
+            "Good job! Keep practicing.";
 
-        feedback =
-            "Excellent! 🌟 Keep up the good work.";
+    } else {
 
+        document.getElementById("feedback").innerText =
+            "Keep practicing and improve.";
     }
-
-    else if (score >= 6) {
-
-        feedback =
-            "Good job! 👍 Practice a little more to improve.";
-
-    }
-
-    else {
-
-        feedback =
-            "Keep practicing! 📚 You can improve with regular practice.";
-
-    }
-
-
-    document.getElementById("feedback").innerText =
-        feedback;
-
 
     showSection("result");
-
 }
 
 
-/* ================= CREATE ACCOUNT ================= */
+/* CREATE ACCOUNT */
 
 function createAccount() {
 
-    let name =
+    const name =
         document.getElementById("createName").value;
 
-    let email =
+    const email =
         document.getElementById("createEmail").value;
 
-    let password =
+    const password =
         document.getElementById("createPassword").value;
 
+    if (name === "" || email === "" || password === "") {
 
-    let message =
-        document.getElementById("createMessage");
-
-
-    if (
-        name === "" ||
-        email === "" ||
-        password === ""
-    ) {
-
-        message.innerText =
-            "Please fill all details.";
-
-        message.style.color = "red";
+        alert("Please fill all fields.");
 
         return;
-
     }
-
 
     localStorage.setItem(
         "studentName",
@@ -515,239 +416,160 @@ function createAccount() {
         password
     );
 
+    alert("Account created successfully!");
 
-    message.innerText =
-        "Account created successfully! 🎉";
-
-    message.style.color = "green";
-
+    showSection("login");
 }
 
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 
 function loginUser() {
 
-    let name =
+    const name =
         document.getElementById("loginName").value;
 
-    let password =
+    const password =
         document.getElementById("loginPassword").value;
 
-
-    let savedName =
+    const savedName =
         localStorage.getItem("studentName");
 
-    let savedPassword =
+    const savedPassword =
         localStorage.getItem("studentPassword");
-
-
-    let message =
-        document.getElementById("loginMessage");
-
 
     if (
         name === savedName &&
         password === savedPassword
     ) {
 
-        message.innerText =
-            "Login successful! Welcome " +
-            name +
-            " 🎉";
+        alert("Login successful!");
 
-        message.style.color = "green";
+        showSection("home");
 
+    } else {
+
+        alert("Invalid name or password.");
     }
-
-    else {
-
-        message.innerText =
-            "Invalid name or password.";
-
-        message.style.color = "red";
-
-    }
-
 }
 
 
-/* ================= CHATBOX ================= */
+/* CHAT BUTTON */
 
 function toggleChat() {
 
-    let chatbox =
+    const chatbox =
         document.getElementById("chatbox");
-
 
     if (chatbox.style.display === "block") {
 
         chatbox.style.display = "none";
 
-    }
-
-    else {
+    } else {
 
         chatbox.style.display = "block";
-
-        document.getElementById("chatInput").focus();
-
     }
-
 }
 
 
-/* ================= CHAT ENTER ================= */
+/* CHAT ENTER */
 
 function chatEnter(event) {
 
     if (event.key === "Enter") {
 
         sendMessage();
-
     }
-
 }
 
 
-/* ================= SEND MESSAGE ================= */
+/* SEND MESSAGE */
 
 function sendMessage() {
 
-    let input =
+    const input =
         document.getElementById("chatInput");
 
-    let messages =
-        document.getElementById("chatMessages");
-
-
-    let text =
+    const message =
         input.value.trim();
 
-
-    if (text === "") {
-
+    if (message === "") {
         return;
-
     }
 
+    const messages =
+        document.getElementById("chatMessages");
 
-    /* USER MESSAGE */
-
-    let userMessage =
-        document.createElement("div");
-
-    userMessage.className =
-        "user-message";
-
-    userMessage.innerText =
-        text;
-
-
-    messages.appendChild(
-        userMessage
-    );
-
+    messages.innerHTML += `
+        <div class="user-message">
+            ${message}
+        </div>
+    `;
 
     input.value = "";
 
+    const reply = getReply(message);
 
-    /* BOT REPLY */
-
-    setTimeout(function() {
-
-        let botMessage =
-            document.createElement("div");
-
-        botMessage.className =
-            "bot-message";
-
-        botMessage.innerText =
-            getReply(text);
-
-
-        messages.appendChild(
-            botMessage
-        );
-
-
-        messages.scrollTop =
-            messages.scrollHeight;
-
-    }, 400);
-
+    messages.innerHTML += `
+        <div class="bot-message">
+            ${reply}
+        </div>
+    `;
 
     messages.scrollTop =
         messages.scrollHeight;
-
 }
 
 
-/* ================= BOT REPLY ================= */
+/* GET CHAT REPLY */
 
-function getReply(text) {
+function getReply(message) {
 
-    text = text.toLowerCase();
-
+    const text = message.toLowerCase();
 
     if (
         text.includes("hello") ||
         text.includes("hi")
     ) {
 
-        return "Hello! 👋 How can I help you?";
-
+        return "Hello! How can I help you?";
     }
-
 
     if (text.includes("html")) {
 
         return "HTML is used to create the structure of a webpage.";
-
     }
-
 
     if (text.includes("css")) {
 
         return "CSS is used to design and style a webpage.";
-
     }
-
 
     if (text.includes("python")) {
 
-        return "Python is a simple and popular programming language.";
-
+        return "Python is a beginner-friendly programming language.";
     }
-
 
     if (
         text.includes("quiz") ||
         text.includes("test")
     ) {
 
-        return "You can start a test by selecting your Standard, Subject and Test Level.";
-
+        return "You can select a subject and level to start a quiz.";
     }
-
 
     if (
         text.includes("study") ||
         text.includes("learn")
     ) {
 
-        return "Study regularly, practice questions and revise your lessons. 📚";
-
+        return "Keep practicing daily and improve your knowledge.";
     }
-
 
     if (text.includes("thank")) {
 
-        return "You're welcome! 😊";
-
+        return "You're welcome!";
     }
 
-
-    return "I can help you with your learning, subjects and tests. 📚";
-
+    return "Sorry, I don't understand. Please ask another question.";
 }
